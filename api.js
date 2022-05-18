@@ -1,4 +1,4 @@
-const backend_base_url = "http://172.30.1.40:5002"
+const backend_base_url = "http://172.30.1.5:5002/"
 const frontend_base_url = "http://127.0.0.1:5500"
 
 async function handleSignin(){
@@ -7,14 +7,14 @@ async function handleSignin(){
         email : document.getElementById("floatingInput").value,
         password : document.getElementById("floatingPassword").value
     }
-    
     console.log(signupData)
-    // console.log(error)
 
-    // if (signupData.email=='' || signupData.password=='') {alert('정보를 입력해주세요')}  // 둘다 미입력
-    // if (signupData.email === '') {alert("이메일을 입력해주세요");}               // 이메일만 미입력시
-    // if (signupData.password === '') {alert("비밀번호를 입력해주세요");}          // 비밀번호만 미입력시    
-    
+    if (signupData.email=='' || signupData.password=='') {alert('정보를 입력해주세요')}  // 둘다 미입력
+    // // if (signupData.email === '') {alert("이메일을 입력해주세요");}               // 이메일만 미입력시
+    // // if (signupData.password === '') {alert("비밀번호를 입력해주세요");}          // 비밀번호만 미입력시
+    if (signupData.email.includes('@') == false) {alert('이메일을 다시 입력해주세요')}    //string.includes() 포함인지 아닌지
+    if (document.getElementById("floatingInput").innerHTML == localStorage.getItem("email")); {alert('가입이 된 이메일입니다.')}
+
     const response = await fetch(`${backend_base_url}/signup` ,{
         method:'POST',
         body:JSON.stringify(signupData)
@@ -28,75 +28,70 @@ async function handleSignin(){
     if (response.status == 200) {
         alert('가입 완료')
         window.location.replace(`${frontend_base_url}/login.html`);
-    } else {
-        alert(response.status)
-    }
-
+    } 
+    // if (response.status == 405) {
+    //     alert('정보를 입력해주세요')
+    // } 
+    // if (response.status == 400) {
+    //     alert('이메일을 다시 입력해주세요')
+    // }
+    // if (response.status == 402) {
+    //     alert('가입이 된 이메일입니다.')
+    // }
 }
+// 알림이 동시에 뜨는 경우가 있음 / db저장상태는 굿 / 콘솔창에 뜨는 서버메세지 굿 / 서버에 상태코드가 안적혀 있다면? / alert 메세지 직접말고 서버msg 불러오는법은?
+////////////로그인///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 async function handleLogin(){
-    
+    // console.log("handle login")
     const loginData = {
         email : document.getElementById("floatingInput").value,
         password : document.getElementById("floatingPassword").value
     }
-    console.log(loginData) 
+    console.log(loginData)
 
-    // if (signupData.email=='' || signupData.password=='') {alert('정보를 입력해주세요')}  // 둘다 미입력
-    // if (signupData.email === '') {alert("이메일을 입력해주세요");}               // 이메일만 미입력시
-    // if (signupData.password === '') {alert("비밀번호를 입력해주세요");}          // 비밀번호만 미입력시    
-    const response = await fetch(`${backend_base_url}/login.html` ,{
+    const response = await fetch(`${backend_base_url}/login` ,{
         method:'POST',
         body:JSON.stringify(loginData)
     }
     )
-
+    
     console.log(response)  
 
-    response_json = await response.json() 
+    response_json = await response.json()
     console.log(response_json)          // 콘솔창에 메세지 석세스랑 토큰찍힘
     localStorage.setItem("token", response_json.token) // 콘솔어플리케이션로컬스토리지-> 토큰확인
 
-async function getName(){
 
-    // console.log("get name")
-    // console.log(localStorage.getItem("token")) //나오는 값이 뭔지 확인하고 삭제.
+    if (response.status == 200) {
+        alert('로그인 완료')
+        window.location.replace(`${frontend_base_url}/mainpage.html`);
+    } else {
+        alert('아이디나 비밀번호가 옳지 않습니다.')
+    }
+}
+
+
+//////////메인페이지///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+async function getName(){  // mainpage.js 에서 실행.
+    // console.log("get name") //mainpage.js도 api.js도 실행.
+    // console.log(localStorage.getItem("token")) //브라우저에 저장된 토큰 값의 가져옴 용도
 
     const response = await fetch(`${backend_base_url}/getuserinfo` ,{
         headers:{
-        'Authorization':localStorage.getItem("token")
+            'Authorization':localStorage.getItem("token")
         }
     }
     )
     response_json = await response.json()
-    console.log(response_json)
+    console.log(response_json) // 다시 이메일이 보이게 됨
 
     const username = document.getElementById("username")
-    
-    username.innerText = response_json.email
+    username.innerText = response_json.email // mainpage.html <h2 id="username">를 email로 바꿔줌.
 
     return response_json.email
-    //     if (response.status == 200) {
-    //     // localStorage.setItem("token", response_json.token) // 에러처리
-    //     window.location.replace(`${frontend_base_url}/login.html`);
-    // } else {
-    //     alert(response.status)
-    // } 
 }
 
-
-
-
-
-
-
-
-
-// elif  (response.status == 412) {alert('이메일형식이 아닙니다')}
-// elif (response.status == 401){alert('정보를 입력해주세요')}
-// elif (response.status == 400){alert('이미 존재하는 이메일입니다')}
-
-
-
-
+//////////메인페이지///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
