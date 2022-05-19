@@ -1,4 +1,4 @@
-const backend_base_url = "http://172.30.1.5:5002/"
+const backend_base_url = "http://127.0.0.1:5002/"
 const frontend_base_url = "http://127.0.0.1:5500"
 
 async function handleSignin(){
