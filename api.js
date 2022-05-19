@@ -97,7 +97,7 @@ async function getName(){  // mainpage.js 에서 실행.
 }
 
     
-//////////게시글///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////게시글 POST///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // 포스트 아티클 함수를 만들고 핸들아티클눌럿을때 콘텐트,타이틀 포스트 아티;클js넘겨주기 위해,
 // 포스트 받기 위해 타이틀과 콘텐트 괄호안에 넣어줌
 
@@ -120,7 +120,7 @@ async function postArticle(title, content){
         }
     )
   
-    response_json = await response.json()
+    response_json = await response.json()     // 받아오는 리스폰스를 json화 해주고 콘솔값으로 나타내줌
     console.log(response_json)
 
     if (response.status == 200) {
@@ -129,4 +129,17 @@ async function postArticle(title, content){
         alert(response.status)
     }
     }
-    // 받아오는 리스폰스를 json화 해주고 콘솔값으로 나타내줌
+ 
+
+//////////게시글 GET///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+async function getArticles(){
+    const response = await fetch(`${backend_base_url}/article`,{
+        method:'GET',
+    }
+    )
+
+    response_json = await response.json()
+    return response_json.articles
+}
