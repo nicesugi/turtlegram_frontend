@@ -86,12 +86,19 @@ async function getName(){  // mainpage.js 에서 실행.
         }
     }
     )
-    response_json = await response.json()
-    console.log(response_json) // 다시 이메일이 보이게 됨
+    // response_json = await response.json()
 
-    const username = document.getElementById("username")
-    
-    username.innerText = response_json.email // mainpage.html <h2 id="username">를 email로 바꿔줌.
+    if(response.status==200){
+        response_json = await response.json()
+        console.log(response_json)
+        return response_json.email
+    }else{
+        return null
+    }
+
+    // console.log(response_json) // 로그아웃버튼 활성화후에 index.js로 작성하여 삭제함
+    // const username = document.getElementById("username")  // 로그아웃버튼 활성화후에 index.js로 작성하여 삭제함
+    // username.innerText = response_json.email // mainpage.html <h2 id="username">를 email로 바꿔줌.
 
     // return response_json.email
 }
