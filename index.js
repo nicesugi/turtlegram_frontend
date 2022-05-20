@@ -5,7 +5,7 @@ async function loadArticles(){
     const article_list = document.getElementById("articles")
 
     articles.forEach(article => {   // 리스트에 쓸수 있는 함수 forEach
-        console.log(article)
+        // console.log(article)
         const newArticle = document.createElement("li");
         newArticle.setAttribute("id", article._id)
         newArticle.innerText = article.title
@@ -15,7 +15,26 @@ async function loadArticles(){
     
 }
 
+async function checkLogin(){
+    const name = await getName();
+    console.log(name)
+    const username = document.getElementById("username")
+    const loginoutButton = document.getElementById("loginout")
+    if(name){
+        username.innerText = name
+        loginoutButton.innerText = "로그아웃"
+        loginoutButton.setAttribute("onclick", "logout()")
+    }else{
+        username.innerText = "로그인해주세요"
+        loginoutButton.innerText = "로그인"
+        loginoutButton.setAttribute("onclick", "location.href='/login.html'")
+    }
 
 
+}
+
+
+
+checkLogin();
 loadArticles();
-getName();
+// getName();
