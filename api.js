@@ -160,5 +160,8 @@ function logout(){
 
 function articleDetail(article_id){
     console.log(article_id)
+    const url = `${frontend_base_url}/article_detail.html?id=${article_id}`
+    location.href = url
+ // ?id=${article_id} 의 article_id는 위의 콘솔로그로 확인이 됐었으니, 그의 상세페이지로 이동시킴.
 }
 
