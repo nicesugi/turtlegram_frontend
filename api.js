@@ -165,3 +165,15 @@ function articleDetail(article_id){
  // ?id=${article_id} 의 article_id는 위의 콘솔로그로 확인이 됐었으니, 그의 상세페이지로 이동시킴.
 }
 
+
+async function getArticleDetail(article_id){
+    const response = await fetch(`${backend_base_url}/article/${article_id}`,{
+        method:'GET',
+
+    }
+    )
+    response_json = await response.json()
+    console.log(response_json)
+    // 받아온 값을 json화 시키고 콘솔로그 확인
+    // getArticleDetail() 안에 article_id 써주고, article_detail.js에도 getArticleDetail(article_id);실행
+}
