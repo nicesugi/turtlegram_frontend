@@ -156,3 +156,9 @@ function logout(){
     localStorage.removeItem("token")
     window.location.replace(`${frontend_base_url}/`);
 }
+
+
+function articleDetail(article_id){
+    console.log(article_id)
+}
+
