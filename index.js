@@ -1,5 +1,5 @@
 async function loadArticles(){
-    console.log("here")
+    // console.log("here")
     articles = await getArticles()
     console.log(articles)
     const article_list = document.getElementById("articles")
@@ -9,11 +9,11 @@ async function loadArticles(){
         const newArticle = document.createElement("li");
         newArticle.setAttribute("id", article._id)
         newArticle.innerText = article.title
+        newArticle.setAttribute("onclick","articleDetail(this.id)") 
         article_list.appendChild(newArticle)
     });
-
-    
 }
+
 
 async function checkLogin(){
     const name = await getName();
