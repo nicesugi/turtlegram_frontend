@@ -169,11 +169,14 @@ function articleDetail(article_id){
 async function getArticleDetail(article_id){
     const response = await fetch(`${backend_base_url}/article/${article_id}`,{
         method:'GET',
-
     }
     )
     response_json = await response.json()
     console.log(response_json)
     // 받아온 값을 json화 시키고 콘솔로그 확인
     // getArticleDetail() 안에 article_id 써주고, article_detail.js에도 getArticleDetail(article_id);실행
+
+    return response_json.article
+// ui 만들기 위해 article_detail.js에서 만들기로함> 받은 값을 넘겨줘야함!
 }
+    
