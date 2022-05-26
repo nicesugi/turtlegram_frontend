@@ -66,7 +66,7 @@ async function handleLogin(){
 
     if (response.status == 200) {
         alert('로그인 완료')
-        window.location.replace(`${frontend_base_url}/mainpage.html`);
+        window.location.replace(`${frontend_base_url}/index.html`);
     } else {
         alert('아이디나 비밀번호가 옳지 않습니다.')
     }
@@ -81,7 +81,6 @@ async function getName(){  // mainpage.js 에서 실행.
     
     const response = await fetch(`${backend_base_url}/getuserinfo`,{
         headers:{
-            
             'Authorization':localStorage.getItem("token")
         }
     }
@@ -95,14 +94,12 @@ async function getName(){  // mainpage.js 에서 실행.
     }else{
         return null
     }
-
+}
     // console.log(response_json) // 로그아웃버튼 활성화후에 index.js로 작성하여 삭제함
     // const username = document.getElementById("username")  // 로그아웃버튼 활성화후에 index.js로 작성하여 삭제함
     // username.innerText = response_json.email // mainpage.html <h2 id="username">를 email로 바꿔줌.
 
     // return response_json.email
-}
-
     
 //////////게시글 POST///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // 포스트 아티클 함수를 만들고 핸들아티클눌럿을때 콘텐트,타이틀 포스트 아티;클js넘겨주기 위해,
@@ -110,7 +107,6 @@ async function getName(){  // mainpage.js 에서 실행.
 
 
 async function postArticle(title, content){
-
     const articleData = {
         title : title,
         content : content,
@@ -119,23 +115,24 @@ async function postArticle(title, content){
     
 
     const response = await fetch(`${backend_base_url}/article`,{
-        
         method:'POST',
         headers:{
             'Authorization':localStorage.getItem("token")},
         body:JSON.stringify(articleData)
-        }
+    }
     )
+
   
     response_json = await response.json()     // 받아오는 리스폰스를 json화 해주고 콘솔값으로 나타내줌
     console.log(response_json)
 
-    if (response.status == 200) {
+    if (response.status ==200){
         window.location.replace(`${frontend_base_url}/`);
     }else{
         alert(response.status)
     }
-    }
+}
+
  
 
 //////////게시글 GET///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -179,4 +176,29 @@ async function getArticleDetail(article_id){
     return response_json.article
 // ui 만들기 위해 article_detail.js에서 만들기로함> 받은 값을 넘겨줘야함!
 }
-    
+   
+
+async function patchArticle(article_id, title, content){
+
+    const articleData = {
+        "title": title,
+        "content":content
+    }
+
+    const response = await fetch(`${backend_base_url}/article/${article_id}`,{
+        headers:{
+            'Authorization':localStorage.getItem("token")},
+        method:'PATCH',
+        body: JSON.stringify(articleData)
+    }
+    )
+
+
+    if (response.status ==200){
+        response_json = await response.json()
+        return response_json
+    }else{
+        alert(response.status)
+    }
+
+}

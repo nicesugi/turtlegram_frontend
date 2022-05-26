@@ -54,7 +54,27 @@ function updateMode(){
 }
 //  구글링할때 Element hide
 
+async function updateArticle(){ 
+    var input_title = document.getElementById("input_title")
+    var input_content = document.getElementById("input_content")
+    console.log(input_title.value, input_content.value)
 
+    const article = await patchArticle(article_id, input_title.value, input_content.value); //>>api.js에서 마저 작성
+
+    input_title.remove()
+    input_content.remove() // 수정하기 눌러서 기존 내용없애주기.
+
+    const title = document.getElementById("title")  // 35.36코드에 title.style.visibility = "hidden" 없애놨으니까
+    const content = document.getElementById("content") // 불러서 
+    title.style.visibility = "visible" // 다시 보이게 !
+    content.style.visibility = "visible"
+
+    update_button.setAttribute("onclick","updateMode()")  // 다시 클릭하면 위의 코드 38 부분이 실행됨
+
+    loadArticle(article_id) // 다시 한 번. 맨 위의 함수 실행
+
+}
+
+
+// 
 loadArticle(article_id) //console.log(article) 할때 같이 실행해야함
-
-// getArticleDetail(article_id)
