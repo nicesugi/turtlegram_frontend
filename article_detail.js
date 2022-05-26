@@ -5,7 +5,7 @@
 const urlParams = new URLSearchParams(window.location.search);
 const article_id = urlParams.get('id');
 console.log(article_id)
-
+let liked = false
 // getArticleDetail(article_id); // ??5강-10에서 11넘어가니까 사라짐 어디로갓죠? 이건 이제 loadArticle로 대체
 
 
@@ -51,6 +51,9 @@ async function loadArticle(article_id){
 
 }
 
+
+
+////////////게시글 내용  업데이트. 제거//////////////////////////////////////////////////////
 function updateMode(){
 
     const title = document.getElementById("title")
@@ -102,12 +105,38 @@ async function removeArticle(){
     await deleteArticle(article_id)  
 }
 
+
+
+////////////댓글작성///////////////////////////////////////////////////////
 async function writeComment(){
     const comment_content = document.getElementById("comment_content")
     const comment = await postComment(article_id, comment_content.value)
     loadArticle(article_id)
     comment_content.value = ''
 }
+
+
+
+
+////////////좋아요///////////////////////////////////////////////////////
+async function likeArticle() {
+    const like_button = document.getElementById("like_button")
+    like_button.classList.toggle("fa-thumbs-down");
+
+    if(!liked){ // 라이크가 아닌 경우
+        const response = await postLike(article_id)
+        console.log(response, "좋아요")
+        like_button.innerText = parseInt(like_button.innerText) + 1
+        liked = true
+    }else{
+        const response = await deleteLike(article_id)
+        console.log(response, "취소")
+        like_button.innerText = parseInt(like_button.innerText) - 1
+        liked = false
+    }
+
+  }
+
 
 
 loadArticle(article_id) //console.log(article) 할때 같이 실행해야함
