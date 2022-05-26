@@ -227,3 +227,27 @@ async function deleteArticle(){
 // 서버 @app.route("/getuserinfo", methods=["GET"]) 리턴값에 아이디값 하기 > 이걸로 게시글 작성 아이디와 비교가 가능해짐
 // index.js checkLogin()에서 username.innerText = name > 값에 name.email < 추가
 // article_detail.js 에서 loadArticle 함수. 끝에서 겟네임을 통해서 유저도 가져옴
+
+
+async function postComment(article_id, comment_content){
+
+    const commentData = {
+        "content":comment_content
+    }
+    const response = await fetch(`${backend_base_url}/article/${article_id}/comment`,{
+        headers:{
+            'Authorization':localStorage.getItem("token")},
+        method:'POST',
+        body: JSON.stringify(commentData)
+    }
+    )
+
+
+    if (response.status ==200){
+        return response
+    }else{
+        alert(response.status)
+    }
+}
+
+

@@ -24,6 +24,23 @@ async function loadArticle(article_id){
     time.innerText = article.time
     // article_detail.html에 있는 아이디값들 넣어주기
     
+    const comment_section = document.getElementById("comment_section")
+    comment_section.innerHTML=''
+
+    for (let i=0; i<article.comments.length; i++){
+        const new_comment = document.createElement("p")
+        new_comment.innerText = article.comments[i].content
+        comment_section.appendChild(new_comment)
+    }
+
+    // for (const comment of article.comments){
+    //     const new_comment = document.createElement("p")
+    //     console.log(comment)
+    //     new_comment.innerText = comment.content
+    //     comment_section.appendChild(new_comment)
+    // }
+       
+
     const user = await getName() //겟네임을 통해서 유저도 가져옴
     if(user.id != article.user) {
         const update_button = document.getElementById("update_button")
@@ -83,9 +100,14 @@ async function updateArticle(){
 
 async function removeArticle(){
     await deleteArticle(article_id)  
-    
 }
 
+async function writeComment(){
+    const comment_content = document.getElementById("comment_content")
+    const comment = await postComment(article_id, comment_content.value)
+    loadArticle(article_id)
+    comment_content.value = ''
+}
 
 
 loadArticle(article_id) //console.log(article) 할때 같이 실행해야함
