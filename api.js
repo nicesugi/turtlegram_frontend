@@ -66,7 +66,7 @@ async function handleLogin(){
 
     if (response.status == 200) {
         alert('로그인 완료')
-        window.location.replace(`${frontend_base_url}/index.html`);
+        window.location.replace(`${frontend_base_url}/`);
     } else {
         alert('아이디나 비밀번호가 옳지 않습니다.')
     }
@@ -90,7 +90,7 @@ async function getName(){  // mainpage.js 에서 실행.
     if(response.status==200){
         response_json = await response.json()
         console.log(response_json)
-        return response_json.email
+        return response_json
     }else{
         return null
     }
@@ -271,12 +271,30 @@ async function postLike(article_id){
 
 
 
-/////////좋아요 취소 : 좋아요만든거에서 함수명과 메소드만 다름 //////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
 async function deleteLike(article_id){
     const response = await fetch(`${backend_base_url}/article/${article_id}/like`,{
         headers:{
             'Authorization':localStorage.getItem("token")},
         method:'DELETE',
+    }
+    )
+
+
+    if (response.status ==200){
+        response_json = await response.json()
+        return response_json
+    }else{
+        alert(response.status)
+    }
+}
+
+/////////좋아요 업뎃 : 위의 좋아요의 함수명과 메소드만 다름 /////////////////////////
+async function getLike(article_id){
+    const response = await fetch(`${backend_base_url}/article/${article_id}/like`,{
+        headers:{
+            'Authorization':localStorage.getItem("token")},
+        method:'GET',
     }
     )
 

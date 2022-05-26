@@ -22,6 +22,7 @@ async function loadArticle(article_id){
     content.innerText = article.content
     user_email.innerText = article.user_email
     time.innerText = article.time
+    like_button.innerText = article.likes_count
     // article_detail.html에 있는 아이디값들 넣어주기
     
     const comment_section = document.getElementById("comment_section")
@@ -40,6 +41,8 @@ async function loadArticle(article_id){
     //     comment_section.appendChild(new_comment)
     // }
        
+    
+    updateLike()
 
     const user = await getName() //겟네임을 통해서 유저도 가져옴
     if(user.id != article.user) {
@@ -138,5 +141,14 @@ async function likeArticle() {
   }
 
 
+
+async function updateLike(){
+    const response = await getLike(article_id)
+    console.log(response)
+    liked = response.liked
+    if(liked){
+        like_button.classList.toggle("fa-thumbs-down");
+    }
+}
 
 loadArticle(article_id) //console.log(article) 할때 같이 실행해야함
