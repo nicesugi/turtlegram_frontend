@@ -135,7 +135,7 @@ async function postArticle(title, content){
 
  
 
-//////////게시글 GET///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////게시글 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 async function getArticles(){
@@ -177,7 +177,7 @@ async function getArticleDetail(article_id){
 // ui 만들기 위해 article_detail.js에서 만들기로함> 받은 값을 넘겨줘야함!
 }
    
-
+/////////게시글 수정 PATCH///////////////////////////////////////////////////////////////////////////////////////////////
 async function patchArticle(article_id, title, content){
 
     const articleData = {
@@ -202,3 +202,28 @@ async function patchArticle(article_id, title, content){
     }
 
 }
+
+
+/////////게시글 삭제 DELETE///////////////////////////////////////////////////////////////////////////////////////////////
+
+async function deleteArticle(){
+    const response = await fetch(`${backend_base_url}/article/${article_id}`,{
+        headers:{
+            'Authorization':localStorage.getItem("token")},
+        method:'DELETE',
+    }
+    )
+
+
+    if (response.status ==200){
+        window.location.replace(`${frontend_base_url}/`); // 삭제가 되고나면 인덱스로 다시 이동하게함 
+    }else{
+        alert(response.status)
+    }
+}
+
+
+// 토큰으로 아이디값을 받아오면 됨. 작성해둔   이용해 작성해보자. 
+// 서버 @app.route("/getuserinfo", methods=["GET"]) 리턴값에 아이디값 하기 > 이걸로 게시글 작성 아이디와 비교가 가능해짐
+// index.js checkLogin()에서 username.innerText = name > 값에 name.email < 추가
+// article_detail.js 에서 loadArticle 함수. 끝에서 겟네임을 통해서 유저도 가져옴

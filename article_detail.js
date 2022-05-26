@@ -24,7 +24,13 @@ async function loadArticle(article_id){
     time.innerText = article.time
     // article_detail.html에 있는 아이디값들 넣어주기
     
-    
+    const user = await getName() //겟네임을 통해서 유저도 가져옴
+    if(user.id != article.user) {
+        const update_button = document.getElementById("update_button")
+        const delete_button = document.getElementById("delete_button")
+        update_button.style.visibility = "hidden"
+        delete_button.style.visibility = "hidden"
+    }
 
 }
 
@@ -75,6 +81,11 @@ async function updateArticle(){
 
 }
 
+async function removeArticle(){
+    await deleteArticle(article_id)  
+    
+}
 
-// 
+
+
 loadArticle(article_id) //console.log(article) 할때 같이 실행해야함
