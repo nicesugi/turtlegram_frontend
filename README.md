@@ -1,7 +1,8 @@
-🐢 TurtleGram | Python & Javascript 바닐라코드 홈페이지 | 5월 15일- |
-Backend | https://github.com/nicesugi/turtlegram_backend.git
+<h1>🐢 TurtleGram </h1> 
+Python & Javascript 바닐라코드 홈페이지 | 5월 15일-  | </br>
+Backend | https://github.com/nicesugi/turtlegram_backend.git</br>
 Frontend | https://github.com/nicesugi/turtlegram_frontend.git
-</br></br>
+<hr>
 **🌱 5월 22일</br>**
 -좋아요 업데이트</br>
 -좋아요 & 좋아요 취소</br>
