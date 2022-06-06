@@ -1,5 +1,5 @@
 <h1>🐢 TurtleGram </h1> 
-Python & Javascript 바닐라코드 홈페이지 | 5월 15일- 22일 | </br>
+Python & Javascript 바닐라코드 홈페이지 | 5월 15일 - 5월 22일 | </br>
 Backend | https://github.com/nicesugi/turtlegram_backend.git</br>
 Frontend | https://github.com/nicesugi/turtlegram_frontend.git
 <hr>
